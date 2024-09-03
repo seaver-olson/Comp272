@@ -20,8 +20,7 @@ class LUCLinkedList{
 			while (last.next != null){
 				last = last.next;
 			}
-			last.next = new_node;//insert the 
-new_node at last node
+			last.next = new_node;//insert the
 		}
 	}
 	public int sumOf(){
@@ -40,30 +39,33 @@ new_node at last node
 			if (currNode.data > max){
 				max = currNode.data;
 			}
-			currNode = currNode.next;	
+			currNode = currNode.next;
 		}
+	return max;
 	}
 	public void evenIndex(){
 		Node currNode = head;
+		System.out.print("Even Indexes: ");
 		while(currNode != null){
-			System.out.println(currNode.data);
+			System.out.print(currNode.data + " ");
 			currNode = currNode.next.next;
 		}
+		System.out.println();
 	}
 	public void removeElement(int element){
 		Node prevNode = head;
 		Node currNode = head;
-		while (currNode.data != null){
+		while (currNode != null){
 			if (currNode.data == element){
 				prevNode.next = currNode.next;
 				currNode.next = null;
 			}
 			currNode = currNode.next;
 			if (prevNode.next != currNode){
-				prevNode = prevNode.next;	
+				prevNode = prevNode.next;
 			}
 		}
-	}	
+	}
 	public void printList(){
 		Node currNode = head;
 		System.out.print("LinkedList: ");
@@ -71,6 +73,7 @@ new_node at last node
 			System.out.print(currNode.data + " ");
 			currNode = currNode.next;
 		}
+		System.out.println();
 	}
 }
 public class LUCLinkedListMain{
@@ -82,6 +85,10 @@ public class LUCLinkedListMain{
 		list.insert(6);
 		list.insert(3);
 		list.insert(9);
+		list.printList();
+		System.out.println("Max: " + list.maxData());
+		list.evenIndex();
+		list.removeElement(5);
 		list.printList();
 	}
 }

@@ -17,15 +17,20 @@ public class StackExercise {
     }
     public static void insertAt(Stack<Integer> stack, int val, int index){
 	int[stack.size] nums = new int[stack.size];
-	
     }
     public static void main(String[] args){
         //create Stack using built in Java class
 	Stack<Integer> stack = new Stack<Integer>        
         //push elements into stack
-        
+        stack.push(5);
+	stack.push(2);
+	stack.push(12);
+	stack.push(7);
+	stack.push(8);
         //call methods
-        
+	getReverse(stack);
+	insertAt(stack, 99, 3);
+	System.out.println(stack);
     }
     
 
