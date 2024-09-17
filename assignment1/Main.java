@@ -30,8 +30,8 @@ public class Main {
         list1.sortedInsert(100);
         list1.sortedInsert(35);
 
-        // System.out.println("Starting Linked-Lists testing ...");
-        // System.out.println("After initial insertions: " + list1);
+         System.out.println("Starting Linked-Lists testing ...");
+         System.out.println("After initial insertions: " + list1);
 
         if ( ! list1.toString().equals("[1 1 2 2 3 3 4 4 9 35 100]") ) {
             System.out.println("ERROR 1: Linked-list test failed sorted insertions");
@@ -42,6 +42,7 @@ public class Main {
         list1.removeElementsLT(8);  // remove items with a value less than 8
         if ( ! list1.toString().equals("[9 35 100]") ) {
             System.out.println("ERROR 2: Linked-list test failed removing elements LT");
+            System.out.println(list1.toString());
             errorFlag = true;
         }
 
@@ -191,3 +192,4 @@ public class Main {
 
         System.out.println("\nTesting complete. Assignment 1 Score is: " + assignmentScore );
     }
+}

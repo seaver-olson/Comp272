@@ -75,13 +75,17 @@ public class HW1 {
          * found in the linked-list that is less than thr parameter value passed.
          */
         public void removeElementsLT ( int ltValue ){
-	    Node temp = head;
-	    while (temp != null){
-		if (temp.data < ltValue){
-			removeElement(temp.data);
-		}
-		temp = temp.next;
-	}
+        //check for the head
+        while (head != null && head.data < ltValue) {
+            head = head.next; // Skip the node with value less than ltValue
+        }
+        Node temp = head;
+	    while (temp.next != null){
+		    if ((temp.next).data < ltValue){
+			    temp.next = temp.next.next;
+		    }
+		    temp = temp.next;
+	    }
             return;
         }
 
@@ -90,33 +94,16 @@ public class HW1 {
          * value equal to the value the provided parameter 'value'.
          */
         public void removeElement ( int value ){
-	    Node prev = null;
-            Node temp = head;
-	    //temp will equal null if at end of list
-	    while(temp != null){
-		//check if current node is equal to the given value
-		if (temp.data == value){
-			//to handle if the head is equal to value
-			if (prev == null){
-				prev = temp;
-				temp = temp.next;
-				prev.next = null;
-			}
-			else {
-				//prev doesn't change, prev.next does
-				prev.next = temp.next;
-				temp.next = null;
-				temp = prev.next;
-			}
-		}
-		else{
-			prev = temp;
-			temp = temp.next;
-		}
-	
-	}
-
-            return;
+           while (head != null && head.data == value){
+                head = head.next;
+           }
+           Node temp = head;
+           while (temp.next != null){
+            if ((temp.next).data == value){
+                temp.next = temp.next.next;
+            }
+            temp = temp.next;
+           }
         }
 
         /*
@@ -173,9 +160,17 @@ public class HW1 {
             Stack<Character> stack = new Stack<>();
             input = input.toLowerCase().replaceAll("\\s+", "");
 
-            // YOUR CODE GOES HERE
-
-            return false;
+            for (char c : input.toCharArray()){
+                stack.push(c);
+            }
+            for (int i = 0; i < input.length(); i++){
+                char[] inpArr = input.toCharArray();
+                if (inpArr[i] != stack.pop()){
+                    return false;
+                }
+            }
+            
+            return true;
         }
 
 
@@ -195,14 +190,7 @@ public class HW1 {
          * completed, place them all back in teh original stack.
          */
         public static int findLargestK(Stack<Integer> stack, int k) {
-
-            int largestIndex = -1;      // initially set to -1 indicating not in stack
-            int tempIndex;
-            Stack<Integer> tempStack = new Stack<>();
-
-            // YOUR CODE GOES HERE
-
-            return -1;
+            return stack.lastIndexOf(k, stack.size()-1);
         }
 
     }  // End class Stacks
@@ -236,7 +224,7 @@ public class HW1 {
          * TODO: return the answer (which option is correct), in the return statement
         */
 
-        return -1;
+        return 1;
     }
 
 
@@ -256,7 +244,7 @@ public class HW1 {
          * TODO: return the answer (which option is correct), in the return statement
          */
 
-        return -1;
+        return 2;
     }
 
 }
