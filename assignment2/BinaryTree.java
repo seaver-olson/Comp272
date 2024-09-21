@@ -1,6 +1,6 @@
 
 /*
- * *** PLACE YOUR NAME / SECTION HERE ***
+ * *** Seaver Olson / Section-002 ***
  *
  * Homework # 2 (Programming Assignment). This Java class defines a few basic
  * manipulation operations of a binary trees.
@@ -224,7 +224,12 @@ public class BinaryTree {
 
         // ADD YOUR CODE HERE -- USE DEPTH FIRST SEARCH OF
         // BINARY TREE (WHICH IS BASED ON RECURSION)
-
+        if (node == null){
+            return;
+        }
+        if (node.left != null){replaceValueHelper(node.left, oldVal, newVal);}
+        if (node.right != null){replaceValueHelper(node.right, oldVal, newVal);}
+        if (node.data == oldVal){node.data = newVal;}
     }
 
 
@@ -246,7 +251,19 @@ public class BinaryTree {
 
         // ADD YOUR CODE HERE -- USE DEPTH FIRST SEARCH OF
         // BINARY TREE (WHICH IS BASED ON RECURSION)
+        if (node != null){
+            if (node.data > node.left.data){
+                return findMinHelper(node.left);
+            }
+            if (node.data > node.right.data){
+                return findMinHelper(node.right);
+            }
+            else{
+                return node.data;
+            }
+        }
 
+        
         return Integer.MAX_VALUE;
     }
 
@@ -265,12 +282,12 @@ public class BinaryTree {
      */
 
     private int nodesGTHelper(Node node, int val) {
-
+        
         // ADD YOUR CODE HERE -- USE DEPTH FIRST SEARCH OF
         // BINARY TREE (WHICH IS BASED ON RECURSION)
 
         // return -1; // RECALL, IF TREE IS EMPTY, RETURN -1
-
+        
 
         return -1;
     }
@@ -303,14 +320,14 @@ public class BinaryTree {
     }
 
     private int[] averageHelper(Node n) {
-
+        
         // ADD YOUR CODE HERE -- USE DEPTH FIRST SEARCH OF
         // BINARY TREE (WHICH IS BASED ON RECURSION)
 
         // RECALL, IF THE TREE IS EMPTY, RETURN 0 FOR BOTH THE SUM AND
         // COUNT LOCATIONS IN THE RETURNED ARRAY AS SHOWN BELOW, ELSE
         // THE 'SUM' IS RETURNED IN INDEX LOCATION 0, AND COUNT IS LOCATION 1
-
+        
         return new int[]{0, 0};
     }
 }

@@ -1,4 +1,4 @@
-//Seaver Olson Section-002
+//Seaver Olson 002
 import java.util.Stack;
 
 public class HW1 {
