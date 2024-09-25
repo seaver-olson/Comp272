@@ -79,7 +79,9 @@ public class Main {
 
       // find the minimum value from tree1 used in previous test, should be -11
       if ( tree1.findMin() != -11 ) {
+        
           System.out.println("Failure (2): findMin method failed testing!");
+          System.out.println(tree1.findMin());
           errorFlag = true;
       }
 
@@ -113,12 +115,14 @@ public class Main {
       // find the number of nodes in tree 1 having a data value > 20, should be 5
       if ( tree1.nodesGT(20) != 5 ) {
           System.out.println("Failure (4): nodesGT method failed testing!");
+          System.out.println(tree1.nodesGT(20));
           errorFlag = true;
       }
 
       // find the number of nodes in tree 2 having a data value > 20, should be 2
       if ( tree2.nodesGT(20) != 2 ) {
           System.out.println("Failure (5): nodesGT method failed testing!");
+          System.out.println(tree2.nodesGT(20));
           errorFlag = true;
       }
 

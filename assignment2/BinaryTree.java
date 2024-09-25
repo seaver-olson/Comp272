@@ -163,22 +163,13 @@ public class BinaryTree {
 
         return tempNode;
 
-    } // End method insert
-
+    }
+    
 
     /*
-     * Public method preOrder()
-     *
-     * This method will generate a String object containing a copy of the tree's
-     * data values in preorder traversal format. If tree is empty, and empty
-     * String object (e.g., "") is returned. Else the String object contains
-     * the data values, separated by a space.
-     *
-     * This public method is simply wrapper for the preOrderHelper private method
-     * which does the actual work. The public wrapper method simply passes the root
-     * of the tree to helper method.
+     * Start of assignment 2 below 
      */
-    
+
     public String preOrder() {
         return preOrderHelper(root);
     }
@@ -191,39 +182,7 @@ public class BinaryTree {
                 + preOrderHelper(node.right);
     }
 
-
-    /***********************************************************
-     *
-     * YOUR CODE GOES BELOW
-     *
-     * THERE IS NO NEED TO CHANGE ANY CODE ABOVE. DO NOT FORGET TO PLACE
-     * YOUR NAME AND SECTION NUMBER AT THE TOP OF THE FILE.
-     *
-     * YOU ARE TO WRITE THE METHODS:
-     *    - replaceValue
-     *    - findMin
-     *    - NodesGT
-     *    - average
-     *
-     ***********************************************************/
-
-
-    /*
-     * private method replaceValueHelper
-     *
-     * This method will traverse the tree using a depth first search
-     * approach, and for each node found with the value of 'oldVal',
-     * replace it (update teh value in place), with the provided 'newVal'.
-     *
-     * Depth first search of the tree is based on recursion. This will result
-     * in very few lines of code.
-     *
-     */
-
     private void replaceValueHelper(Node node, int oldVal, int newVal) {
-
-        // ADD YOUR CODE HERE -- USE DEPTH FIRST SEARCH OF
-        // BINARY TREE (WHICH IS BASED ON RECURSION)
         if (node == null){
             return;
         }
@@ -232,103 +191,34 @@ public class BinaryTree {
         if (node.data == oldVal){node.data = newVal;}
     }
 
-
-    /*
-     * private method findMinHelper()
-     *
-     * This method will traverse the tree using depth first search traversal and
-     * return the minimum data value in the binary tree. If the tree is empty, the
-     * value 'Integer.MAX_VALUE' is returned. Recall that this is not a binary
-     * search Tree (BST), so it does not have the additional property that the
-     * smaller data values always traverse the left child. So that implies all
-     * node is this tree must be traversed.
-     *
-     * Depth first search of the tree is based on recursion. This will result
-     * in very few lines of code.
-     */
-
     private int findMinHelper(Node node) {
-
-        // ADD YOUR CODE HERE -- USE DEPTH FIRST SEARCH OF
-        // BINARY TREE (WHICH IS BASED ON RECURSION)
-        if (node != null){
-            if (node.data > node.left.data){
-                return findMinHelper(node.left);
-            }
-            if (node.data > node.right.data){
-                return findMinHelper(node.right);
-            }
-            else{
-                return node.data;
-            }
+        if (node == null){
+            return Integer.MAX_VALUE;
         }
-
-        
-        return Integer.MAX_VALUE;
+        int rMin = findMinHelper(node.right);
+        int lMin = findMinHelper(node.left);
+        return Math.min(node.data,Math.min(rMin, lMin));
     }
-
-
-    /*
-     * private method nodeGTHelper()
-     *
-     * This method will traverse the tree using depth first search traversal and
-     * return a count on the number of nodes that contain a data value larger
-     * than the parameter 'val'.
-     *
-     * If the tree is empty, return 0.
-     *
-     * Depth first search of the tree is based on recursion. This will result
-     * in very few lines of code.
-     */
 
     private int nodesGTHelper(Node node, int val) {
-        
-        // ADD YOUR CODE HERE -- USE DEPTH FIRST SEARCH OF
-        // BINARY TREE (WHICH IS BASED ON RECURSION)
-
-        // return -1; // RECALL, IF TREE IS EMPTY, RETURN -1
-        
-
-        return -1;
+        if (node == null){
+            return 0;
+        } else {
+            return ((node.data > val) ? 1 : 0) + (nodesGTHelper(node.left,val) + nodesGTHelper(node.right, val));
+        }
     }
-
-
-    /*
-     * public method average()
-     *
-     * This method will traverse the tree using depth first search traversal and
-     * return the average value contained in the binary tree. To easily perform a depth
-     * first traversal, it invokes the helper method, averageHelper(), which is the
-     * method that should be called recursively. If the tree is empty, 0 should be
-     * returned.
-     *
-     * IMPORTANT NOTE:
-     * The helper method should return an array of two integer values. In index
-     * location [0] is the sum of all data values in the tree. And in index
-     * location [1] is the count of nodes.
-     *
-     * As can be seen in the method average() immediately below, the returned average
-     * value is calculated as "sum / count".
-     *
-     * Depth first search of the tree is based on recursion. This will result
-     * in very few lines of code within the helper method.
-     */
-
     public double average() {
         int[] sumAndCount = averageHelper(root);
         return (double) sumAndCount[0] / sumAndCount[1];
     }
 
     private int[] averageHelper(Node n) {
-        
-        // ADD YOUR CODE HERE -- USE DEPTH FIRST SEARCH OF
-        // BINARY TREE (WHICH IS BASED ON RECURSION)
+        if (n == null){
+            return new int[]{0,0};
+        }
+        int[] left = averageHelper(n.left);
+        int[] right = averageHelper(n.right);
 
-        // RECALL, IF THE TREE IS EMPTY, RETURN 0 FOR BOTH THE SUM AND
-        // COUNT LOCATIONS IN THE RETURNED ARRAY AS SHOWN BELOW, ELSE
-        // THE 'SUM' IS RETURNED IN INDEX LOCATION 0, AND COUNT IS LOCATION 1
-        
-        return new int[]{0, 0};
+        return new int[]{left[0]+right[0]+n.data,left[1]+right[1]+1};
     }
 }
-//hello world
