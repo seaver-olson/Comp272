@@ -40,20 +40,15 @@
           * returning 0.0 is NOT correct, as that is not the average value. Whereas
           * returning 0.0/0.0 IS correct (which would return a non-number).
           */
-        int value = 0;
-        boolean flag = false;
-        for (int integer : array) {
-            if (map.containsKey(integer)) {
-                value += map.get(integer);
-                if (!flag) {
-                    flag = true;
-                }
+        double avg = 0.0;
+        int count = 0;
+        for (int num : array) {
+            if (map.containsKey(num)) {
+                avg += map.get(num);
+                count++;
             }
         }
-        if (!flag){
-            return 0.0 / 0.0;
-        }
-        return value / array.length;
+         return count == 0 ? 0.0/0.0 : avg/count;//NaN if no values found
    }
  
  
@@ -66,13 +61,7 @@
  
    public ArrayList<String> odd(HashMap<Integer, String> map) {
      
-       ArrayList<String> result = new ArrayList<>();
- 
-       /*
-        * ADD YOUR CODE HERE
-        *
-        * Hint: Consider iterating over the HashMap using the keySet method.
-        */
+        ArrayList<String> result = new ArrayList<>();
         Set<Integer> keys = map.keySet();
         for (int key : keys) {
             if (key % 2 == 1) {result.add(map.get(key));}//if odd add to result

@@ -220,23 +220,8 @@
       */
  
      public V remove(K key) {
- 
-         /*
-          * ADD YOUR CODE HERE
-          *
-          * Review the code in the whole object to understand teh data structures layout.
-          * Additionally, review the method put() for inserting a new Key / Value pair into
-          * the HashMap. This method will do the opposite by removing an element. Do see
-          * the return value discussion in this method's prologue to make sure the correct
-          * return value is returned the invoking function based on the remove outcome.
-          */
-        //return prev value associeated with key
-        V value = get(key);
         int index = getBucketIndex(key);
         HashNode<K, V> head = bucket.get(index);
-        if (head == null) {
-            return null;
-        }
         HashNode<K, V> prev = null;
         while (head != null) {
             if (head.key.equals(key)) {
@@ -245,11 +230,20 @@
             prev = head;
             head = head.next;
         }
+        //should only trigger if while() didnt exit early
+        if (head == null) {
+            return null;
+        }
         size--;
-        return value;
-
-        
-     }
+        //if not the first element
+        if (prev != null) {
+            prev.next = head.next;
+        } else {
+            //if first element
+            bucket.set(index, head.next); 
+        }
+        return head.value;
+    }
  
  
      /**
@@ -422,7 +416,16 @@
           * Make sure you return the proper value based on the outcome of this method's
           * replace (see method's prologue above).
           */
- 
+         int index = getBucketIndex(key);
+         HashNode<K, V> head = bucket.get(index);
+         while (head != null) {
+            if(head.key.equals(key)){
+                V oldVal = head.value;
+                head.value = val;
+                return oldVal;
+            }
+            head = head.next;
+         }
          return val;
      }
  
@@ -450,7 +453,15 @@
           * This method should apply the precondition (aka, the Key already exists with the
           * value 'oldval', and is so, it SHOULD call replace(K, V) for code reuse.
           */
- 
+         int index = getBucketIndex(key);
+         HashNode<K, V> head = bucket.get(index);
+         while(head != null){
+            if(head.key.equals(key) && head.value.equals(oldVal)){
+                head.value = newVal;
+                return true;
+            }
+            head = head.next;
+         }
          return false;
      }
  
