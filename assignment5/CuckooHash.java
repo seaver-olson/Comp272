@@ -245,12 +245,29 @@
       */
  
       public void put(K key, V value) {
- 
-         // ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME AT TOP OF FILE.
-         // Also make sure you read this method's prologue above, it should help
-         // you. Especially the two HINTS in the prologue.
- 
-         return;
+        Bucket<K,V> temp = new Bucket<>(key, value);
+		int nextidx = hash1(temp.bucKey);
+		Bucket<K,V> next = table[nextidx];
+
+		for(int i = 0; i < CAPACITY; i++) {
+
+			if (next != null && next.bucKey.equals(temp.bucKey)) {
+                if(next.value.equals(temp.value)) return;
+            }
+			table[nextidx] = temp;
+			if(next == null) return;
+
+			if (nextidx == hash1(next.bucKey)){
+                nextidx = hash2(next.bucKey);
+            } else {
+                nextidx = hash1(next.bucKey);
+            }
+
+			temp = next;
+			next = table[nextidx];
+		}
+		rehash();
+		put(temp.bucKey, temp.value);
      }
  
  
