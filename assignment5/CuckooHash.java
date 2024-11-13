@@ -248,9 +248,7 @@
         Bucket<K,V> temp = new Bucket<>(key, value);
 		int nextidx = hash1(temp.bucKey);
 		Bucket<K,V> next = table[nextidx];
-
 		for(int i = 0; i < CAPACITY; i++) {
-
 			if (next != null && next.bucKey.equals(temp.bucKey)) {
                 if(next.value.equals(temp.value)) return;
             }
@@ -262,7 +260,6 @@
             } else {
                 nextidx = hash1(next.bucKey);
             }
-
 			temp = next;
 			next = table[nextidx];
 		}
