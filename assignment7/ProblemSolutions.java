@@ -1,13 +1,16 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Seaver Olson / 002
  *
  *   This java file contains the problem solutions for the methods selectionSort,
  *   mergeSortDivisibleByKFirst, asteroidsDestroyed, and numRescueCanoes methods.
  *
  ********************************************************************/
 
- import java.util.Arrays;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.PriorityQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 
  public class ProblemSolutions {
  
@@ -37,13 +40,23 @@
          int n = values.length;
  
          for (int i = 0; i < n - 1; i++) {
- 
-             // YOU CODE GOES HERE -- COMPLETE THE INNER LOOP OF THIS
-             // "SELECTION SORT" ALGORITHM.
-             // DO NOT FORGET TO ADD YOUR NAME / SECTION ABOVE
- 
+            int min = i;
+            for (int j = i + 1; j < n; j++) {
+                if (ascending) {
+                    if (values[j] < values[min]) {
+                        min = j;
+                    }
+                } else {
+                    if (values[j] > values[min]) {
+                        min = j;
+                    }
+                }
+            }
+            int temp = values[min];
+            values[min] = values[i];
+            values[i] = temp;
          }
- 
+
      } // End class selectionSort
  
  
@@ -89,21 +102,9 @@
      /*
       * The merging portion of the merge sort, divisible by k first
       */
- 
      private void mergeDivisbleByKFirst(int arr[], int k, int left, int mid, int right)
      {
-         // YOUR CODE GOES HERE, THIS METHOD IS NO MORE THAN THE STANDARD MERGE PORTION
-         // OF A MERGESORT, EXCEPT THE NUMBERS DIVISIBLE BY K MUST GO FIRST WITHIN THE
-         // SEQUENCE PER THE DISCUSSION IN THE PROLOGUE ABOVE.
-         //
-         // NOTE: YOU CAN PROGRAM THIS WITH A SPACE COMPLEXITY OF O(1) OR O(N LOG N).
-         // AGAIN, THIS IS REFERRING TO SPACE COMPLEXITY. O(1) IS IN-PLACE, O(N LOG N)
-         // ALLOCATES AUXILIARY DATA STRUCTURES (TEMPORARY ARRAYS). IT WILL BE EASIER
-         // TO CODE WITH A SPACE COMPLEXITY OF O(N LOG N), WHICH IS FINE FOR PURPOSES
-         // OF THIS PROGRAMMING EXERCISES.
- 
-         return;
- 
+        //have no clue
      }
  
  
@@ -154,9 +155,15 @@
  
      public static boolean asteroidsDestroyed(int mass, int[] asteroids) {
  
-         // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT()
- 
-         return false;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (int asteroid : asteroids) {
+            pq.add(asteroid);
+        }
+        while (!pq.isEmpty()){
+            if (mass < pq.peek()) return false;
+            mass += pq.poll();
+        }
+        return true;
  
      }
  
@@ -191,11 +198,18 @@
       */
  
      public static int numRescueSleds(int[] people, int limit) {
- 
-         // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT
- 
-         return -1;
- 
+        Arrays.sort(people);
+        int i = 0;//lightest person
+        int j = people.length - 1;//heaviest person
+        int sleds = 0;
+        while (i <= j){
+            sleds++;
+            if (people[i] + people[j] <= limit){
+                i++;
+            }
+            j--;
+        }
+        return sleds;
      }
  
  } // End Class ProblemSolutions
